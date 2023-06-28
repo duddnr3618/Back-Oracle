@@ -227,7 +227,7 @@ from employee;
 
 select ename 사원 , salary 급여
 from employee
-where salary <2000 or salary > 3000
+where salary not between 2000 and 3000;
 
 -- 6. 1981년 2월 20일부터 81년 5월 1일 사이의 입사한 사원의 이름 담당업무, 입사일을 출력하시오
 select *
@@ -246,13 +246,18 @@ from employee
 where dno >= 20 and dno <=30 
 order by 사원이름 desc;
 
+select ename , dno
+from employee 
+where dno in (20,30)
+order by ename asc;
+
 -- 8. 사원의 급여가 2000에서 3000사이에 포함되고 부서번호가 20 또는 30인 사원의 이름, 급여와 부서번호를 출력하되 이름을 오름차순으로 출력하세요. 
 select *
 from employee;
 
 select ename 사원이름 , salary 급여 ,dno 부서번호
 from employee
-where salary >= 2000 and salary <=3000 and dno = 20 or dno =30
+where( salary between 2000 and 3000) and (dno in(20,30) )
 order by 사원이름 asc;
 
 -- 9. 1981년도 입사한 사원의 이름과 입사일을 출력 하시오 ( like 연산자와 와일드 카드 사용 : _ , % )
@@ -268,7 +273,7 @@ select *
 from employee;
 
 select ename 사원이름 , job 직책
-from employee
+from employee , manager
 where MANAGER is null ;
 
 -- 11. 커밋션을 받을 수 있는 자격이 되는 사원의 이름, 급여, 커미션을 출력하되 급여및 커밋션을 기준으로 내림차순 정렬하여 표시하시오.
@@ -278,7 +283,7 @@ from employee;
 select ename 사원이름 , salary 급여 , commission 보너스
 from employee
 where COMMISSION is not null
-order by job , commission asc;  -- 두개 이상의 컬럼이 정렬될때 job컬럼을 정렬후 중복된 값에 대해서 commission 이 정렬됨
+order by salary desc , commission desc;  -- 두개 이상의 컬럼이 정렬될때 job컬럼을 정렬후 중복된 값에 대해서 commission 이 정렬됨
 
 -- 12. 이름이 세번째 문자인 R인 사원의 이름을 표시하시오.
 select *
@@ -286,8 +291,28 @@ from employee;
 
 select ename 사원이름
 from employee
+where ename like '__R%';            -- _ _ 를 사용함
 
-13. 이름에 A 와 E 를 모두 포함하고 있는 사원의 이름을 표시하시오.
+select ename
+from employee
+where instr (ename , 'R' ,3) = 3;
+select ename ,instr (ename , 'R' ,3)
+from employee;
+
+-- 13. 이름에 A 와 E 를 모두 포함하고 있는 사원의 이름을 표시하시오.
+select *
+from employee;
+
+select ename 
+from employee
+where ename like '%A%' and ename like '%E%';
+
+select ename 
+from employee
+where instr(ename ,'A') !=0 and instr(ename ,'E')!=0;
+
+select 
+from employee
 --14. 담당 업무가 사무원(CLERK) 또는 영업사원(SALESMAN)이며서 
    -- 급여가 $1600, $950, 또는 $1300 이 아닌 사원의 이름, 담당업무, 급여를 출력하시오.
 select *
@@ -296,7 +321,10 @@ from employee;
 select ename 사원이름 , job 담당업무 , salary 급여
 from employee
 where salary != 950 or salary != 1600 or salary !=1300 and job = 'CLEAK' or job = 'SALESMAN'
-    
+
+select ename , job , salary
+from employee
+where job in('CLEAK','SALESMAN') and salary not in (1600,950,1300);
 -- 15. 커미션이 $500이상인 사원의 이름과 급여 및 커미션을 출력하시오.  
 select *
 from employee;

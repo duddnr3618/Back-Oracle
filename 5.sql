@@ -25,7 +25,7 @@ where table_name = 'DEPT01';
 -- 1. 자식테이블 삭제후 부모테이블 삭제
 -- 2. 부모테이블을 삭제하면서 cascade 옵션을 사용시 강제로 삭제된다.
 
--- 보모테이블 삭제
+-- 부모테이블 삭제
 drop table ParentTb1;
 -- 1.자식테이블 먼저 삭제 후 부모테이블 삭제
 drop table ChildTb1;
@@ -42,12 +42,12 @@ add (birth date);
 alter table dept01
 add (email varchar2(100) , addr varchar2(200) , jumin char(14) );
 
--- 테이블에 컬럼을 추가하게 되면 기본값으로 nill이 할당된다. -> update로 값 할당(추가)
+-- 테이블에 컬럼을 추가하게 되면 기본값으로 null이 할당된다. -> update로 값 할당(추가)
 update dept01
 set birth = sysdate , email = 'aaa@aaa.com' , addr = '서울' , jumin = '123456-1234567'
 where dno = 10;
 
--- 컬럼의 자료향을 수정 : char , varchar 글자수를 늘림
+-- 컬럼의 자료형을 수정 : char , varchar 글자수를 늘림
 alter table dept01
 modify email varchar2(200);
 desc dept01;

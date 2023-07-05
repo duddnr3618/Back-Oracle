@@ -11,7 +11,7 @@ int : 4byte -> number (4)
 number (4) : 정수 4자리만 입력
 number 
 */
--- Members 테이블
+-- Members 테이블 회원정보
 CREATE TABLE Members (
     MemberID INT PRIMARY KEY,
     FirstName VARCHAR2(50),
